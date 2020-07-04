@@ -201,7 +201,7 @@
 		},
 		onLoad(option) {
 			uni.connectSocket({
-			  url: 'ws://49.235.104.224:8081'
+			  url: 'ws://localhost:8081'
 			});
 			uni.onSocketOpen(function (res) {
 			  console.log('WebSocket连接已打开！');
@@ -289,34 +289,6 @@
 				this.isHistoryLoading = true;//参数作为进入请求标识，防止重复请求
 				this.scrollAnimation = false;//关闭滑动动画
 				let Viewid = this.msgList[0].msg.id;//记住第一个信息ID
-				
-				//本地模拟请求历史记录效果
-				// setTimeout(()=>{
-				// 	// 消息列表
-				// 	let list = [
-				// 		{type:"user",msg:{id:4,type:"voice",time:"13:05",userinfo:{uid:0,username:"大黑哥",face:"/static/img/face.jpg"},content:{url:"/static/voice/2.mp3",length:"00:06"}}},
-				// 		{type:"user",msg:{id:2,type:"text",time:"12:56",userinfo:{uid:1,username:"大黑哥",face:"/static/img/face.jpg"},content:{text:"为什么温度会相差那么大？"}}},
-				// 	]
-				// 	// 获取消息中的图片,并处理显示尺寸
-				// 	for(let i=0;i<list.length;i++){
-				// 		if(list[i].type=='user'&&list[i].msg.type=="img"){
-				// 			list[i].msg.content = this.setPicSize(list[i].msg.content);
-				// 			this.msgImgList.unshift(list[i].msg.content.url);
-				// 		}
-				// 		list[i].msg.id = Math.floor(Math.random()*1000+1);
-				// 		this.msgList.unshift(list[i]);
-				// 	}
-					
-				// 	//这段代码很重要，不然每次加载历史数据都会跳到顶部
-				// 	this.$nextTick(function() {
-				// 		this.scrollToView = 'msg'+Viewid;//跳转上次的第一行信息位置
-				// 		this.$nextTick(function() {
-				// 			this.scrollAnimation = true;//恢复滚动动画
-				// 		});
-						
-				// 	});
-				// this.isHistoryLoading = false;
-				// },1000)
 			},
 			// 加载初始页面消息
 			getMsgList(){
@@ -402,7 +374,7 @@
 									console.log("选择图片");
 									// console.log(image.height);
 									uni.uploadFile({
-										url: 'http://49.235.104.224:8082/upup', //仅为示例，非真实的接口地址
+										url: 'http://localhost:8082/upup', //仅为示例，非真实的接口地址
 										filePath: res.tempFilePaths[i],
 										success: (uploadFileRes) => {
 											console.log("上传图片");
@@ -459,7 +431,7 @@
 							if(EM.alt==item){
 								//在线表情路径，图文混排必须使用网络路径，请上传一份表情到你的服务器后再替换此路径 
 								//比如你上传服务器后，你的100.gif路径为https://www.xxx.com/emoji/100.gif 则替换onlinePath填写为https://www.xxx.com/emoji/
-								let onlinePath = 'http://49.235.104.224:8082/uploads/emoji/'
+								let onlinePath = 'http://localhost:8082/uploads/emoji/'
 								let imgstr = '<img style="vertical-align:middle;" src="'+onlinePath+EM.url+'">';
 								// console.log("imgstr: " + imgstr);
 								return imgstr;
@@ -577,7 +549,7 @@
 				if(!this.willStop){
 					// console.log("e: " + JSON.stringify(e));
 					uni.uploadFile({
-						url: 'http://49.235.104.224:8082/upup', //仅为示例，非真实的接口地址
+						url: 'http://localhost:8082/upup', //仅为示例，非真实的接口地址
 						filePath: e.tempFilePath,
 						success: (uploadFileRes) => {
 							let msg = {
